@@ -63,7 +63,7 @@
             <validFrom>2015-01-01</validFrom>
             <publicExplanation>Beschreibung</publicExplanation>
         </agreementInfo>
-            <!-- Ende Info -->
+        <!-- Ende Info -->
         <discountGroups>
             <discountGroup>
                 <uuid>07cf597f-e0e2-4cfa-b5ff-e2af231834e9</uuid>

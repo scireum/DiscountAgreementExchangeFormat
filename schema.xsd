@@ -25,7 +25,7 @@
       <xs:element type="groupRestriction" name="discountGroupType3" minOccurs="0" />
       <xs:element type="groupRelationsType" name="groupRelations" minOccurs="0"/>
       <xs:element type="groupMultipliersType" name="groupMultipliers" minOccurs="0"/>
-      <xs:element type="groupDiscountsType" name="groupDiscounts"/>
+      <xs:element type="groupDiscountsType" name="groupDiscounts" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="groupMultipliersType">
@@ -171,9 +171,9 @@
   <xs:complexType name="discountAgreementType">
     <xs:sequence>
       <xs:element type="agreementInfoType" name="agreementInfo"/>
-      <xs:element type="agreementParametersType" name="agreementParameters"/>
-      <xs:element type="agreementDescriptionsType" name="agreementDescriptions"/>
-      <xs:element type="discountGroupsType" name="discountGroups"/>
+      <xs:element type="agreementParametersType" name="agreementParameters" minOccurs="0"/>
+      <xs:element type="agreementDescriptionsType" name="agreementDescriptions" minOccurs="0"/>
+      <xs:element type="discountGroupsType" name="discountGroups" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="agreementParametersType">
@@ -203,8 +203,8 @@
   </xs:complexType>
   <xs:complexType name="prerequisitesType">
     <xs:sequence>
-      <xs:element type="roundingDescriptionsType" name="roundingDescriptions"/>
-      <xs:element type="discountTypesType" name="discountTypes"/>
+      <xs:element type="roundingDescriptionsType" name="roundingDescriptions" minOccurs="0"/>
+      <xs:element type="discountTypesType" name="discountTypes" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="resultType">
