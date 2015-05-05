@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="result" type="resultType"/>
+  <xs:complexType name="discountGroupsType">
+    <xs:sequence>
+      <xs:element type="discountGroupType" name="discountGroup" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="groupRestriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RG"/>
+      <xs:enumeration value="PG"/>
+      <xs:enumeration value="ITEM"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="discountGroupType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="description" minOccurs="0"/>
+      <xs:element type="xs:string" name="discountGroup" minOccurs="0"/>
+      <xs:element type="xs:string" name="discountGroup2" minOccurs="0"/>
+      <xs:element type="xs:string" name="discountGroup3" minOccurs="0"/>
+      <xs:element type="groupRestriction" name="discountGroupType" minOccurs="0" />
+      <xs:element type="groupRestriction" name="discountGroupType2" minOccurs="0" />
+      <xs:element type="groupRestriction" name="discountGroupType3" minOccurs="0" />
+      <xs:element type="groupRelationsType" name="groupRelations" minOccurs="0"/>
+      <xs:element type="groupMultipliersType" name="groupMultipliers" minOccurs="0"/>
+      <xs:element type="groupDiscountsType" name="groupDiscounts"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupMultipliersType">
+    <xs:sequence>
+      <xs:element type="groupMultiplierType" name="groupMultiplier" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupMultiplierType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="active"/>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="priority"/>
+      <xs:element type="xs:string" name="description"/>
+      <xs:element type="xs:string" name="calculationType"/>
+      <xs:element type="xs:string" name="roundingDescription"/>
+      <xs:element type="xs:string" name="multiplier"/>
+      <xs:element type="xs:string" name="valueAbsolute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupDiscountType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="description"/>
+      <xs:element type="xs:string" name="type"/>
+      <xs:element name="additionGroup" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="ZR"/>
+            <xs:enumeration value="a"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="state">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="INHERITED"/>
+            <xs:enumeration value="OPTIONAL_INACTIVE"/>
+            <xs:enumeration value="INACTIVE"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="valuePercent" minOccurs="0"/>
+      <xs:element type="xs:string" name="valueAbsolute" minOccurs="0"/>
+      <xs:element type="xs:string" name="conditionHint" minOccurs="0"/>
+      <xs:element type="xs:string" name="conditionExplanation" minOccurs="0"/>
+      <xs:element type="xs:string" name="validFrom" minOccurs="0"/>
+      <xs:element type="xs:string" name="validTo" minOccurs="0"/>
+      <xs:element name="conditionTarget">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="NA"/>
+            <xs:enumeration value="TOTAL_REVENUE"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="discountScalesType" name="discountScales" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discountScaleType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element name="conditionOperator">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="EQ"/>
+            <xs:enumeration value="LT"/>
+            <xs:enumeration value="GT"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="conditionValue"/>
+      <xs:element type="xs:string" name="valuePercent"/>
+      <xs:element type="xs:string" name="active"/>
+      <xs:element name="defaultValue">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false"/>
+            <xs:enumeration value="true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="agreementInfoType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="creationDate"/>
+      <xs:element type="xs:string" name="validFrom"/>
+      <xs:element type="xs:string" name="validTo" minOccurs="0" maxOccurs="1"/>
+      <xs:element type="xs:string" name="explanation" minOccurs="0" maxOccurs="1"/>
+      <xs:element type="xs:string" name="publicExplanation"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discountScalesType">
+    <xs:sequence>
+      <xs:element type="discountScaleType" name="discountScale" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discountTypeType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="state"/>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="priority"/>
+      <xs:element type="xs:string" name="purpose" minOccurs="0"/>
+      <xs:element name="category">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="TERM"/>
+            <xs:enumeration value="NET_NET_PRICE"/>
+            <xs:enumeration value="ADDON"/>
+            <xs:enumeration value="DISCOUNT"/>
+            <xs:enumeration value="BONUS"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="role" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="roundingDescriptionTypeType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="roundingRulesType" name="roundingRules" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="roundingRulesType">
+    <xs:sequence>
+      <xs:element type="roundingRuleType" name="roundingRule" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="roundingRuleType">
+      <xs:sequence>
+        <xs:element type="xs:string" name="uuid"/>
+        <xs:element type="xs:string" name="minValue" />
+        <xs:element type="xs:string" name="acceptedDivisor" />
+      </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discountAgreementType">
+    <xs:sequence>
+      <xs:element type="agreementInfoType" name="agreementInfo"/>
+      <xs:element type="agreementParametersType" name="agreementParameters"/>
+      <xs:element type="agreementDescriptionsType" name="agreementDescriptions"/>
+      <xs:element type="discountGroupsType" name="discountGroups"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="agreementParametersType">
+    <xs:sequence>
+      <xs:element type="agreementParameterType" name="agreementParameter" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="agreementDescriptionsType">
+    <xs:sequence>
+      <xs:element type="agreementDescriptionType" name="agreementDescription" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="agreementDescriptionType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid" />
+      <xs:element type="xs:string" name="name" />
+      <xs:element type="xs:string" name="description" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="agreementParameterType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid" />
+      <xs:element type="xs:string" name="agreementInfoType" />
+      <xs:element type="xs:string" name="description" />
+      <xs:element type="xs:string" name="changed" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="prerequisitesType">
+    <xs:sequence>
+      <xs:element type="roundingDescriptionsType" name="roundingDescriptions"/>
+      <xs:element type="discountTypesType" name="discountTypes"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resultType">
+    <xs:sequence>
+      <xs:element type="prerequisitesType" name="prerequisites"/>
+      <xs:element type="discountAgreementType" name="discountAgreement"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupDiscountsType">
+    <xs:sequence>
+      <xs:element type="groupDiscountType" name="groupDiscount" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="discountTypesType">
+    <xs:sequence>
+      <xs:element type="discountTypeType" name="discountType" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="roundingDescriptionsType">
+    <xs:sequence>
+      <xs:element type="roundingDescriptionTypeType" name="roundingDescription" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupRelationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="discountGroup"/>
+      <xs:element name="discountGroupType">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="RG"/>
+            <xs:enumeration value="WG"/>
+            <xs:enumeration value="PG"/>
+            <xs:enumeration value="ITEM"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="relationType"/>
+      <xs:element name="quantityOnly">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false"/>
+            <xs:enumeration value="true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupRelationsType">
+    <xs:sequence>
+      <xs:element type="groupRelationType" name="groupRelation" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
