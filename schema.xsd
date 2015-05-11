@@ -38,6 +38,13 @@
       <xs:element type="roundingRuleType" name="roundingRule" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="roundingRuleType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="minValue" />
+      <xs:element type="xs:string" name="acceptedDivisor" />
+    </xs:sequence>
+  </xs:complexType>
 
   <!-- discountType -->
   <xs:complexType name="discountTypesType">
@@ -53,17 +60,7 @@
       <xs:element type="xs:string" name="code"/>
       <xs:element type="xs:string" name="priority"/>
       <xs:element type="xs:string" name="purpose" minOccurs="0"/>
-      <xs:element name="category">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="TERM"/>
-            <xs:enumeration value="NET_NET_PRICE"/>
-            <xs:enumeration value="ADDON"/>
-            <xs:enumeration value="DISCOUNT"/>
-            <xs:enumeration value="BONUS"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
+      <xs:element type="xs:string" name="category" />
       <xs:element type="xs:string" name="role" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
@@ -86,8 +83,8 @@
       <xs:element type="xs:string" name="code"/>
       <xs:element type="xs:string" name="creationDate"/>
       <xs:element type="xs:string" name="validFrom"/>
-      <xs:element type="xs:string" name="validTo" minOccurs="0" maxOccurs="1"/>
-      <xs:element type="xs:string" name="explanation" minOccurs="0" maxOccurs="1"/>
+      <xs:element type="xs:string" name="validTo" />
+      <xs:element type="xs:string" name="explanation" />
       <xs:element type="xs:string" name="publicExplanation"/>
     </xs:sequence>
   </xs:complexType>
@@ -134,22 +131,36 @@
       <xs:element type="xs:string" name="discountGroup" minOccurs="0"/>
       <xs:element type="xs:string" name="discountGroup2" minOccurs="0"/>
       <xs:element type="xs:string" name="discountGroup3" minOccurs="0"/>
-      <xs:element type="groupRestriction" name="discountGroupType" minOccurs="0" />
-      <xs:element type="groupRestriction" name="discountGroupType2" minOccurs="0" />
-      <xs:element type="groupRestriction" name="discountGroupType3" minOccurs="0" />
+      <xs:element type="xs:string" name="discountGroupType" minOccurs="0" />
+      <xs:element type="xs:string" name="discountGroupType2" minOccurs="0" />
+      <xs:element type="xs:string" name="discountGroupType3" minOccurs="0" />
       <xs:element type="groupRelationsType" name="groupRelations" minOccurs="0"/>
       <xs:element type="groupMultipliersType" name="groupMultipliers" minOccurs="0"/>
       <xs:element type="groupDiscountsType" name="groupDiscounts" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="groupRestriction">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="RG"/>
-      <xs:enumeration value="PG"/>
-      <xs:enumeration value="ITEM"/>
-    </xs:restriction>
-  </xs:simpleType>
+  <xs:complexType name="groupRelationsType">
+    <xs:sequence>
+      <xs:element type="groupRelationType" name="groupRelation" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupRelationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="uuid"/>
+      <xs:element type="xs:string" name="discountGroup"/>
+      <xs:element name="discountGroupType" />
+      <xs:element type="xs:string" name="relationType"/>
+      <xs:element name="quantityOnly">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false"/>
+            <xs:enumeration value="true"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="groupMultipliersType">
     <xs:sequence>
@@ -175,44 +186,21 @@
       <xs:element type="groupDiscountType" name="groupDiscount" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="groupDiscountType">
     <xs:sequence>
       <xs:element type="xs:string" name="uuid"/>
       <xs:element type="xs:string" name="description"/>
       <xs:element type="xs:string" name="type"/>
-      <xs:element name="additionGroup" minOccurs="0">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="ZR"/>
-            <xs:enumeration value="a"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="state">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="INHERITED"/>
-            <xs:enumeration value="OPTIONAL_INACTIVE"/>
-            <xs:enumeration value="INACTIVE"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
+      <xs:element type="xs:string" name="additionGroup" minOccurs="0" />
+      <xs:element type="xs:string" name="state" />
       <xs:element type="xs:string" name="valuePercent" minOccurs="0"/>
       <xs:element type="xs:string" name="valueAbsolute" minOccurs="0"/>
       <xs:element type="xs:string" name="conditionHint" minOccurs="0"/>
       <xs:element type="xs:string" name="conditionExplanation" minOccurs="0"/>
       <xs:element type="xs:string" name="validFrom" minOccurs="0"/>
       <xs:element type="xs:string" name="validTo" minOccurs="0"/>
-      <xs:element name="conditionTarget">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="NA"/>
-            <xs:enumeration value="TOTAL_REVENUE"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element type="discountScalesType" name="discountScales" minOccurs="0"/>
+      <xs:element type="xs:string" name="conditionTarget" />
+      <xs:element type="discountScalesType" name="discountScales" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -244,46 +232,6 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="roundingRuleType">
-      <xs:sequence>
-        <xs:element type="xs:string" name="uuid"/>
-        <xs:element type="xs:string" name="minValue" />
-        <xs:element type="xs:string" name="acceptedDivisor" />
-      </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="groupRelationType">
-    <xs:sequence>
-      <xs:element type="xs:string" name="uuid"/>
-      <xs:element type="xs:string" name="discountGroup"/>
-      <xs:element name="discountGroupType">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="RG"/>
-            <xs:enumeration value="WG"/>
-            <xs:enumeration value="PG"/>
-            <xs:enumeration value="ITEM"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element type="xs:string" name="relationType"/>
-      <xs:element name="quantityOnly">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="false"/>
-            <xs:enumeration value="true"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="groupRelationsType">
-    <xs:sequence>
-      <xs:element type="groupRelationType" name="groupRelation" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <!-- end of discountAgreement -->
